@@ -2,110 +2,94 @@ package matrixPrinting;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.InvalidPropertiesFormatException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.application.Application;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Stage;
 
-public class Main {
-
+public class Main extends Application {
+// cria o vetor dinâmico bidimensional
+        private static List<List<String>> matrix = new ArrayList<>();
+// cria o vetor dinâmico que armazenará as linhas da matriz
+        private static List<String> matrixLine = new ArrayList<>();
+// conta a ordem da matriz e linhas e colunas
+        private static int order = 0, rows = 0, columns = 0;
+        
+    
 	public static void main(String[] args) {
-
-		String fileName = "C:/Users/Diogo_2/Documents/testeRoberto.txt";
-		printing(fileName);
-
+                Application.launch(args);		
+		
 	}
+        
+        @Override
+        public void start(Stage stage){
+                stage.setTitle("Trabalhos do roberto o melhor professor do mundo");                
+                
+                FileChooser fileChooser = new FileChooser();                
+                fileChooser.setTitle("Selecione a matriz a ser exibida:");
+                
+                ExtensionFilter extensionFilter = new ExtensionFilter("Arquivo de texto txt (.txt)","*.txt");
+                fileChooser.getExtensionFilters().add(extensionFilter);
+                
+                File file = fileChooser.showOpenDialog(stage);     
+                printingFileChooser(file);
+        }
 
-	public static void printing(String fileName) {
-		// nome do arquivo a abrir
-		String filename = fileName;
+	public static void printingFileChooser(File file) {		
 		// pega uma linha de cada vez
 		String line = null;
 
 		try {
 			// cria o leitor de arquivo
-			FileReader fReader = new FileReader(filename);
+			FileReader fReader = new FileReader(file);
 			// coloca o leitor de arquivo dentro de um BufferedReader
 			BufferedReader bReader = new BufferedReader(fReader);
-
+                        line = bReader.readLine();
+                        StringBuilder sb = new StringBuilder();
 			// le a linha
-			line = bReader.readLine();
+			
 
 			// roda o metodo para montar a matriz
 			while (line != null) {
-
-				arranging(line);
-
-			}
-
+                            sb.append(line);
+                            sb.append(System.lineSeparator());
+                            line = bReader.readLine();
+                        }
+                        
+                        arranging(sb.toString());
+                        
 		} catch (FileNotFoundException ex) {
-			System.out.printf("Nao foi possivel abrir o arquivo %s\n", filename);
+                        System.err.println(ex);
+			System.err.printf("Nao foi possivel abrir o arquivo %s\n", file.getName());
 
-		} catch (IOException ex) {
-			ex.printStackTrace();
-
-		}
+		} catch (IOException ex) { 
+                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
 	}
 
-	public static void arranging(String matriX) {
-		// cria o vetor din�mico bidimensional
-		List<List<String>> matrix = new ArrayList<List<String>>();
-		// cria o vetor din�mico que armazenar� as linhas da matriz
-		List<String> matrixLine = new ArrayList<String>();
-		// conta a ordem da matriz e linhas e colunas
-		int order, rows, columns;
-		// cria uma String para isolar os caracteres
-		String isolate;
-		int fin = 0;
+	public static void arranging(String matriX) throws IOException { 	
+            
+            /*roda a String. o contador comecara onde o sinal da matriz
+            comeca ('['), pois pode conter outras coisas antes da matriz, e
+            isso faria com que o índice ficasse gigante :p*/
+            for (int i = matriX.indexOf("["); i <= matriX.length(); i++) {
 
-		// roda a String
-		for (int i = 0; i < matriX.length(); i++) {
+                // se chegou no ',' ou ']' fecha a linha adicionando ela pra matriz
+                // adicionei isso pois pode ter uma matriz 1x1 e aí ela não teria ',' para separar as linhas.
 
-			// se for uma das chaves ignora
-			if (matriX.substring(i) == "{" | matriX.substring(i) == "}") {
+                if (matriX.substring(i).equals(",") || matriX.substring(i).equals("]") ) {
+                        matrix.add(matrixLine);
+                }
 
-			}
-			// se for espaco tambem
-			else if (matriX.substring(i) == " ") {
-
-			}
-			// se chegou no ; fecha a linha adicionando ela pra matriz
-			else if (matriX.substring(i) == ";") {
-				matrix.add(matrixLine);
-
-			}
-			// se nenhuma das anteriores, vai compondo a linha
-			else {
-
-				// verifica se depois n�o vem alguma caractere que n�o sirva pra
-				// compor o numero
-				do {
-					if (!(matriX.substring(i + 1) != " " && matriX.substring(i + 1) != ";"
-							&& matriX.substring(i + 1) != "{" && matriX.substring(i + 1) != "}")) {
-						// incrementa o numero final do numero (quantas casas)
-						fin++;
-					}
-				}
-				// roda enquanto o que vem apos o que foi testado nao for um
-				// treco bosta
-				while (!(matriX.substring(i + 1) != " " && matriX.substring(i + 1) != ";"
-						&& matriX.substring(i + 1) != "{" && matriX.substring(i + 1) != "}"));
-
-				// isola o numero
-				isolate = matriX.substring(i, fin);
-
-				// verifica se e realmene um numero
-				if (isNumeric(isolate)) {
-					// adiciona pra linha
-					matrixLine.add(isolate);
-
-				}
-
-				// pula pra depois desse numero
-				i += fin;
-
-			}
-
-		}
-
+                else {                     
+                   addRow(manipulateRow(matriX, i));
+                }
+            }
 	}
 
 	// testa uma String pra ver se e numerica
@@ -117,5 +101,45 @@ public class Main {
 		}
 		return true;
 	}
+        
+        public static String[] manipulateRow(String matriX, int i) throws InvalidPropertiesFormatException{
+            String selectedRow, splitedRow[];
+            
+            /* esse método encontra a primeira ',';            
+            cria uma substring até a primeira ',';
+            separa cada coisa entre os espaços em uma array. */
+            
+            int endRow = matriX.indexOf(",", matriX.length());
+            if(endRow == -1){
+                endRow = matriX.indexOf("]");
+            }
+            
+            System.out.println(endRow);
+            selectedRow = matriX.substring(i, endRow);
+ 
+            splitedRow = selectedRow.split("//s+"); 
+            
+            if(endRow != -1){
+                i = endRow + 1;
+                rows++;
+            } else {
+                throw new InvalidPropertiesFormatException("O formato está incorreto. Verifique o arquivo.");
+            }        
+            
+            return splitedRow;
+        }
+        
+        public static void addRow(String splitedRow[]) throws InvalidPropertiesFormatException{
+            /*Esse metodo verifica se todos os itens da array splitedRow são numeros;
+            Adiciona-os a matriz linha.
+            Salva a ultima posicao do for ('i') para leitura posterior*/
+            for(String number : splitedRow){
 
+                if (isNumeric(number)) {
+                    matrixLine.add(number);                    
+                } else {
+                    throw new InvalidPropertiesFormatException("A matriz não é composta por apenas números");
+                }                                                                               
+            }
+        }
 }
