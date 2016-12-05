@@ -2,7 +2,7 @@ package matrixPrinting;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.InvalidPropertiesFormatException;
+import java.util.InvalidPropertiesFormatException; //usar depois pra tratar erro
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,17 +11,11 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
-public class Main extends Application {
-// cria o vetor dinâmico bidimensional
-        private static List<List<String>> matrix = new ArrayList<>();
-// cria o vetor dinâmico que armazenará as linhas da matriz
-        private static List<String> matrixLine = new ArrayList<>();
-// conta a ordem da matriz e linhas e colunas
-        private static int order = 0, rows = 0, columns = 0;
-        
+public class Main extends Application {        
     
 	public static void main(String[] args) {
-                Application.launch(args);		
+                //inicializa a janela do javafx
+                Application.launch(args);
 		
 	}
         
@@ -29,12 +23,15 @@ public class Main extends Application {
         public void start(Stage stage){
                 stage.setTitle("Trabalhos do roberto o melhor professor do mundo");                
                 
+                //adiciona o menu pra escolher arquivo
                 FileChooser fileChooser = new FileChooser();                
                 fileChooser.setTitle("Selecione a matriz a ser exibida:");
                 
+                //limita apenas para txt
                 ExtensionFilter extensionFilter = new ExtensionFilter("Arquivo de texto txt (.txt)","*.txt");
                 fileChooser.getExtensionFilters().add(extensionFilter);
                 
+                //atribui o arquivo selecionado para variavel
                 File file = fileChooser.showOpenDialog(stage);     
                 printingFileChooser(file);
         }
@@ -60,7 +57,7 @@ public class Main extends Application {
                             line = bReader.readLine();
                         }
                         
-                        arranging(sb.toString());
+                        manipulateRow(sb.toString());
                         
 		} catch (FileNotFoundException ex) {
                         System.err.println(ex);
@@ -71,75 +68,55 @@ public class Main extends Application {
             }
 
 	}
-
-	public static void arranging(String matriX) throws IOException { 	
-            
-            /*roda a String. o contador comecara onde o sinal da matriz
-            comeca ('['), pois pode conter outras coisas antes da matriz, e
-            isso faria com que o índice ficasse gigante :p*/
-            for (int i = matriX.indexOf("["); i <= matriX.length(); i++) {
-
-                // se chegou no ',' ou ']' fecha a linha adicionando ela pra matriz
-                // adicionei isso pois pode ter uma matriz 1x1 e aí ela não teria ',' para separar as linhas.
-
-                if (matriX.substring(i).equals(",") || matriX.substring(i).equals("]") ) {
-                        matrix.add(matrixLine);
-                }
-
-                else {                     
-                   addRow(manipulateRow(matriX, i));
-                }
-            }
-	}
-
-	// testa uma String pra ver se e numerica
-	public static boolean isNumeric(String str) {
-		try {
-			double d = Double.parseDouble(str);
-		} catch (NumberFormatException nfe) {
-			return false;
-		}
-		return true;
-	}
+	
         
-        public static String[] manipulateRow(String matriX, int i) throws InvalidPropertiesFormatException{
-            String selectedRow, splitedRow[];
+        static List<String[]> manipulateRow(String matriX) {
+            //cria a matriz que armazena tudo
+            List<String[]> matrixLine = new ArrayList<>();
             
-            /* esse método encontra a primeira ',';            
-            cria uma substring até a primeira ',';
-            separa cada coisa entre os espaços em uma array. */
+            //splitedsrow armazena linha separada
+            //contentOfRow armazera o conteudo de cada linha 
+            String splitedsRow[], contentOfRow [];
             
-            int endRow = matriX.indexOf(",", matriX.length());
-            if(endRow == -1){
-                endRow = matriX.indexOf("]");
+            //separa todo o arquivo por ',' entendendo que a cada ',' terá
+            //uma linha da matriz.
+            splitedsRow = matriX.split(",");
+            
+            for(String wholeRow: splitedsRow){
+                
+                //[^0-9|\\.|\\/]+", "-" = substitui TUDO menos os números de 
+                //0-9 OU o . (para numeros Double) OU o / (para numeros
+                //fracionados)
+                wholeRow = wholeRow.replaceAll("[^0-9|\\.|\\/]+", "-");
+                
+                //agora a LINHA se parecerá com isso: 2-3-4 
+                //então separaremos apenas os numeros, removendo o -
+                contentOfRow = wholeRow.split("-");
+                
+                //adiciona a array (linha) na list que contém todas as linhas
+                matrixLine.add(contentOfRow);
+
             }
-            
-            System.out.println(endRow);
-            selectedRow = matriX.substring(i, endRow);
- 
-            splitedRow = selectedRow.split("//s+"); 
-            
-            if(endRow != -1){
-                i = endRow + 1;
-                rows++;
-            } else {
-                throw new InvalidPropertiesFormatException("O formato está incorreto. Verifique o arquivo.");
-            }        
-            
-            return splitedRow;
+//            for(String [] oi: matrixLine){
+//                for(String xd : oi){
+//                    System.out.println(xd);
+//                }                
+//            } isso aqui tu pode usar pra exibir todos os elementos da matriz em ordem
+            return matrixLine;
         }
         
-        public static void addRow(String splitedRow[]) throws InvalidPropertiesFormatException{
-            /*Esse metodo verifica se todos os itens da array splitedRow são numeros;
-            Adiciona-os a matriz linha.
-            Salva a ultima posicao do for ('i') para leitura posterior*/
-            for(String number : splitedRow){
-
-                if (isNumeric(number)) {
-                    matrixLine.add(number);                    
-                } else {
-                    throw new InvalidPropertiesFormatException("A matriz não é composta por apenas números");
-                }                                                                               
+        
+        
+        public static boolean verifyMatrix(List<String[]> matrix){
+            //aqui precisa terminar, que é verificar se toda matriz é válida,
+            //tipo nenhuma coluna estiver com valor nulo e etc.
+            boolean doesAnyRowContainsNull = true; //remover o true
+            List <Integer> lengthsValues = new ArrayList<>();
+            for(String [] row : matrix){
+               lengthsValues.add(row.length);
             }
-        }
+            
+         
+             return doesAnyRowContainsNull;  
+        }         
 }
