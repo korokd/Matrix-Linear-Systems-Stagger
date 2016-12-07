@@ -2,120 +2,192 @@ package matrixPrinting;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.InvalidPropertiesFormatException; //usar depois pra tratar erro
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.application.Application;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Stage;
 
-public class Main {
+public class Main extends Application {
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
+        //inicializa a janela do javafx
+        Application.launch(args);
 
-		String fileName = "C:/Users/Diogo_2/Documents/testeRoberto.txt";
-		printing(fileName);
+    }
 
-	}
+    @Override
+    public void start(Stage stage) {
+        stage.setTitle("Trabalhos do roberto o melhor professor do mundo");
 
-	public static void printing(String fileName) {
-		// nome do arquivo a abrir
-		String filename = fileName;
-		// pega uma linha de cada vez
-		String line = null;
+        //adiciona o menu pra escolher arquivo
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Selecione a matriz a ser exibida:");
 
-		try {
-			// cria o leitor de arquivo
-			FileReader fReader = new FileReader(filename);
-			// coloca o leitor de arquivo dentro de um BufferedReader
-			BufferedReader bReader = new BufferedReader(fReader);
+        //limita apenas para txt
+        ExtensionFilter extensionFilter = new ExtensionFilter("Arquivo de texto txt (.txt)", "*.txt");
+        fileChooser.getExtensionFilters().add(extensionFilter);
 
+        //atribui o arquivo selecionado para variavel
+        File file = fileChooser.showOpenDialog(stage);
+        printingFileChooser(file);
+    }
+
+    public static void printingFileChooser(File file) {
+        // pega uma linha de cada vez
+        String line = null;
+
+        try {
+            // cria o leitor de arquivo
+            FileReader fReader = new FileReader(file);
+            // coloca o leitor de arquivo dentro de um BufferedReader
+            BufferedReader bReader = new BufferedReader(fReader);
+            line = bReader.readLine();
+            StringBuilder sb = new StringBuilder();
 			// le a linha
-			line = bReader.readLine();
 
-			// roda o metodo para montar a matriz
-			while (line != null) {
+            // roda o metodo para montar a matriz
+            while (line != null) {
+                sb.append(line);
+                sb.append(System.lineSeparator());
+                line = bReader.readLine();
+            }
 
-				arranging(line);
+            String matrix = sb.toString();
 
-			}
+//            System.out.println(sb.toString());
+            if (verifyMatrix(manipulateRow(matrix))) {
+                printMatrix(manipulateRow(matrix));
+            } else {
+                System.out.println("Nao foi possivel encontrar uma matriz no arquivo");
+            }
 
-		} catch (FileNotFoundException ex) {
-			System.out.printf("Nao foi possivel abrir o arquivo %s\n", filename);
+        } catch (FileNotFoundException ex) {
+            System.err.println(ex);
+            System.err.printf("Nao foi possivel abrir o arquivo %s\n", file.getName());
 
-		} catch (IOException ex) {
-			ex.printStackTrace();
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            System.exit(0);
+        }
 
-		}
+    }
 
-	}
+    static List<String[]> manipulateRow(String matriX) {
+        //cria a matriz que armazena tudo
+        List<String[]> matrixLine = new ArrayList<>();
 
-	public static void arranging(String matriX) {
-		// cria o vetor dinâmico bidimensional
-		List<List<String>> matrix = new ArrayList<List<String>>();
-		// cria o vetor dinâmico que armazenará as linhas da matriz
-		List<String> matrixLine = new ArrayList<String>();
-		// conta a ordem da matriz e linhas e colunas
-		int order, rows, columns;
-		// cria uma String para isolar os caracteres
-		String isolate;
-		int fin = 0;
+        //splitedsrow armazena linha separada
+        //contentOfRow armazera o conteudo de cada linha 
+        String splitedsRow[], contentOfRow[];
 
-		// roda a String
-		for (int i = 0; i < matriX.length(); i++) {
+        //separa todo o arquivo por ',' entendendo que a cada ',' teraÂ¡
+        //uma linha da matriz.
+        splitedsRow = matriX.split(";");
 
-			// se for uma das chaves ignora
-			if (matriX.substring(i) == "{" | matriX.substring(i) == "}") {
+        for (String wholeRow : splitedsRow) {
 
-			}
-			// se for espaco tambem
-			else if (matriX.substring(i) == " ") {
+            //[^0-9|\\.|\\/]+", "-" = substitui TUDO menos os numeros de 
+            //0-9 OU o . (para numeros Double) OU o / (para numeros
+            //fracionados)
+            wholeRow = wholeRow.replaceAll("[^0-9|\\.|\\/|\\-|\\,]+", "~");
 
-			}
-			// se chegou no ; fecha a linha adicionando ela pra matriz
-			else if (matriX.substring(i) == ";") {
-				matrix.add(matrixLine);
+            //StringBuilder utilizado para poder retirar o primeiro caractere (-)
+            //da String wholeRow, de forma a evitar um null no index 0
+            StringBuilder sbWholeRow = new StringBuilder(wholeRow);
 
-			}
-			// se nenhuma das anteriores, vai compondo a linha
-			else {
+            sbWholeRow.deleteCharAt(0);
+            //atribui para wholeRow a String sem o primeiro caractere
+            wholeRow = sbWholeRow.toString();
 
-				// verifica se depois não vem alguma caractere que não sirva pra
-				// compor o numero
-				do {
-					if (!(matriX.substring(i + 1) != " " && matriX.substring(i + 1) != ";"
-							&& matriX.substring(i + 1) != "{" && matriX.substring(i + 1) != "}")) {
-						// incrementa o numero final do numero (quantas casas)
-						fin++;
-					}
-				}
-				// roda enquanto o que vem apos o que foi testado nao for um
-				// treco bosta
-				while (!(matriX.substring(i + 1) != " " && matriX.substring(i + 1) != ";"
-						&& matriX.substring(i + 1) != "{" && matriX.substring(i + 1) != "}"));
+            //agora a LINHA se parecera com isso: 2-3-4 
+            //entao separaremos apenas os numeros, removendo o -
+            contentOfRow = wholeRow.split("~");
 
-				// isola o numero
-				isolate = matriX.substring(i, fin);
+//            for(String a : contentOfRow) {
+//                System.out.println(a);
+//            }
+            //adiciona a array (linha) na list que contem todas as linhas
+            matrixLine.add(contentOfRow);
 
-				// verifica se e realmene um numero
-				if (isNumeric(isolate)) {
-					// adiciona pra linha
-					matrixLine.add(isolate);
+        }
 
-				}
+        return matrixLine;
+    }
 
-				// pula pra depois desse numero
-				i += fin;
+    public static boolean verifyMatrix(List<String[]> matrix) {
+        //aqui precisa terminar, que vai verificar se toda matriz e valida,
+        //tipo nenhuma coluna estiver com valor nulo e etc.
+        boolean doesAnyRowContainsNull = true;
 
-			}
+        //separa a matrix pelas linhas e roda por elas
+        for (String[] a : matrix) {
+            //roda pelos elementos da linha
+            for (String b : a) {
+                //se houver algum nulo atribui o valor false a variavel
+                //obs: nao ha caminho de volta para true
+                if (b == null) {
+                    doesAnyRowContainsNull = false;
+                }
+            }
+        }
 
-		}
+        List<Integer> lengthsValues = new ArrayList<>();
+        for (String[] row : matrix) {
+            lengthsValues.add(row.length);
+        }
 
-	}
+        for (int i = 0; i < lengthsValues.size(); i++) {
+            for (int j = 0; j < lengthsValues.size(); j++) {
+                if (lengthsValues.get(i) != lengthsValues.get(j)) {
+                    doesAnyRowContainsNull = false;
+                }
+            }
+        }
 
-	// testa uma String pra ver se e numerica
-	public static boolean isNumeric(String str) {
-		try {
-			double d = Double.parseDouble(str);
-		} catch (NumberFormatException nfe) {
-			return false;
-		}
-		return true;
-	}
+        return doesAnyRowContainsNull;
+    }
+
+    public static void printMatrix(List<String[]> matrixLine) {
+
+        // conta se ja se atingiu a ultima linha para que imprima a ordem
+        int contador = 0;
+        String format = "|";
+
+//        String[] under = new String[matrixLine.get(0).length];
+//        under[0] = "_";
+//        under[under.length - 1] = "_";
+        for (String[] oi : matrixLine) {
+//            if (contador == 0) {
+//                for (String a : under) {
+//                    System.out.printf(a);
+//                }
+//            }
+            // imprime a linha
+//            format = (matrixLine.indexOf(oi) == 0) ? "[" : (matrixLine.indexOf(oi) == matrixLine.size() - 1) ? "[" : "|";
+            System.out.printf("\t%s", format);
+            for (String xd : oi) {
+                System.out.printf("\t%s ", xd);
+            }
+//            format = (matrixLine.indexOf(oi) == 0) ? "]" : (matrixLine.indexOf(oi) == matrixLine.size() - 1) ? "]" : "|";
+            System.out.printf("\t%s", format);
+            contador++;
+            // imprime a ordem
+            if (contador == matrixLine.size()) {
+//                for (String a : under) {
+//                    System.out.printf(a);
+//                }
+                System.out.printf(" %sx%s", matrixLine.size(), oi.length);
+            }
+            // pula a linha
+            System.out.println();
+
+        }
+
+    }
 
 }
