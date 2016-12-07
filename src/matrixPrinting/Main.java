@@ -87,25 +87,26 @@ public class Main extends Application {
 
         //separa todo o arquivo por ',' entendendo que a cada ',' tera¡
         //uma linha da matriz.
-        splitedsRow = matriX.split(",");
+        splitedsRow = matriX.split(";");
 
         for (String wholeRow : splitedsRow) {
 
             //[^0-9|\\.|\\/]+", "-" = substitui TUDO menos os numeros de 
             //0-9 OU o . (para numeros Double) OU o / (para numeros
             //fracionados)
-            wholeRow = wholeRow.replaceAll("[^0-9|\\.|\\/]+", "-");
+            wholeRow = wholeRow.replaceAll("[^0-9|\\.|\\/|\\-|\\,]+", "~");
 
             //StringBuilder utilizado para poder retirar o primeiro caractere (-)
             //da String wholeRow, de forma a evitar um null no index 0
             StringBuilder sbWholeRow = new StringBuilder(wholeRow);
+
             sbWholeRow.deleteCharAt(0);
             //atribui para wholeRow a String sem o primeiro caractere
             wholeRow = sbWholeRow.toString();
 
             //agora a LINHA se parecera com isso: 2-3-4 
             //entao separaremos apenas os numeros, removendo o -
-            contentOfRow = wholeRow.split("-");
+            contentOfRow = wholeRow.split("~");
 
 //            for(String a : contentOfRow) {
 //                System.out.println(a);
@@ -139,7 +140,7 @@ public class Main extends Application {
         for (String[] row : matrix) {
             lengthsValues.add(row.length);
         }
-                    
+
         for (int i = 0; i < lengthsValues.size(); i++) {
             for (int j = 0; j < lengthsValues.size(); j++) {
                 if (lengthsValues.get(i) != lengthsValues.get(j)) {
@@ -147,7 +148,7 @@ public class Main extends Application {
                 }
             }
         }
-                
+
         return doesAnyRowContainsNull;
     }
 
@@ -155,15 +156,31 @@ public class Main extends Application {
 
         // conta se ja se atingiu a ultima linha para que imprima a ordem
         int contador = 0;
+        String format = "|";
 
+//        String[] under = new String[matrixLine.get(0).length];
+//        under[0] = "_";
+//        under[under.length - 1] = "_";
         for (String[] oi : matrixLine) {
+//            if (contador == 0) {
+//                for (String a : under) {
+//                    System.out.printf(a);
+//                }
+//            }
             // imprime a linha
+//            format = (matrixLine.indexOf(oi) == 0) ? "[" : (matrixLine.indexOf(oi) == matrixLine.size() - 1) ? "[" : "|";
+            System.out.printf("\t%s", format);
             for (String xd : oi) {
                 System.out.printf("\t%s ", xd);
             }
+//            format = (matrixLine.indexOf(oi) == 0) ? "]" : (matrixLine.indexOf(oi) == matrixLine.size() - 1) ? "]" : "|";
+            System.out.printf("\t%s", format);
             contador++;
             // imprime a ordem
             if (contador == matrixLine.size()) {
+//                for (String a : under) {
+//                    System.out.printf(a);
+//                }
                 System.out.printf(" %sx%s", matrixLine.size(), oi.length);
             }
             // pula a linha
