@@ -21,9 +21,10 @@ public class Main extends Application {
         Application.launch(args);
 
     }
-
+    
+    //TODO:{after everything done, implement in here}
     public void start(Stage stage) {
-
+        
         stage.setTitle("Trabalhos do roberto o melhor professor do mundo");
 
         //adiciona o menu pra escolher arquivo
