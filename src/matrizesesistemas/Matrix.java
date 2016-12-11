@@ -123,11 +123,11 @@ public class Matrix {
 
     private String fractionToDecimal(String a) {
 
-        String[] b = a.split("/");
+        String[] b = a.split("/");  
 
         double num, den;
-        num = Double.parseDouble(b[1]);
-        den = Double.parseDouble(b[2]);
+        num = Double.parseDouble(b[0]);
+        den = Double.parseDouble(b[1]);
 
         return String.valueOf(num / den);
 
