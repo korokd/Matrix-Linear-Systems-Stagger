@@ -66,4 +66,22 @@ public class Operations {
 
     }
 
+    public static double[][] matrixTrans(Matrix matrix) {
+        int row = matrix.getMatrixN().length;
+        int col = matrix.getMatrixN()[0].length;
+        double[][] matrixR = new double[col][row];
+
+        for (int i = 0; i < row; i++) {
+
+            for (int j = 0; j < col; j++) {
+               matrixR[j][i] = matrix.getMatrixN()[i][j];
+                
+                
+            }
+
+        }
+
+        return matrixR;
+    }
+
 }
