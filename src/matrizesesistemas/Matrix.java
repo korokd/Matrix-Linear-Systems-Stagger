@@ -80,7 +80,9 @@ public class Matrix {
         for (String[] a : matrix) {
 
             for (String b : a) {
-
+                
+                b.replace(",", ".");
+                
                 if (b.contains("/")) {
 
                     b = fractionToDecimal(b);
