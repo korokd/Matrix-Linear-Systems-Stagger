@@ -16,6 +16,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import matrizesesistemas.Main;
 
 /** 
  * @author Leu <@leunardosevla at twitter.com>
@@ -46,6 +47,7 @@ public class SelectFileController {
                 nomeArquivos.add(file.getName());
                 selectedFiles.add(file);
                 listViewId.getItems().addAll(nomeArquivos);
+                Main.addToMatrixes(file);
             }     
         }    
         
