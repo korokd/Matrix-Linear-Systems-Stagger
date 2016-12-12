@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SelectWindowController">
+   <center>
+      <VBox alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="336.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <ButtonBar prefHeight="40.0" prefWidth="538.0">
+              <buttons>
+                  <TextField fx:id="field1Id" editable="false" prefHeight="25.0" prefWidth="581.0" />
+                <Button fx:id="add1Id" alignment="CENTER" contentDisplay="RIGHT" maxWidth="50.0" minWidth="41.0" mnemonicParsing="false" onAction="#add1" prefHeight="25.0" prefWidth="40.0" text="Adicionar..." />
+              </buttons>
+               <VBox.margin>
+                  <Insets right="10.0" />
+               </VBox.margin>
+            </ButtonBar>
+            <ButtonBar prefHeight="40.0" prefWidth="538.0">
+               <buttons>
+                  <TextField fx:id="field2Id" editable="false" prefHeight="25.0" prefWidth="581.0" />
+                  <Button fx:id="add2Id" alignment="CENTER" contentDisplay="RIGHT" maxWidth="50.0" minWidth="41.0" mnemonicParsing="false" onAction="#add2" prefHeight="25.0" prefWidth="40.0" text="Adicionar..." />
+               </buttons>
+               <VBox.margin>
+                  <Insets right="10.0" />
+               </VBox.margin>
+            </ButtonBar>
+            <ButtonBar prefHeight="40.0" prefWidth="538.0">
+               <buttons>
+                  <TextField fx:id="field3Id" editable="false" prefHeight="25.0" prefWidth="581.0" />
+                  <Button fx:id="add3Id" alignment="CENTER" contentDisplay="RIGHT" maxWidth="50.0" minWidth="41.0" mnemonicParsing="false" onAction="#add3" prefHeight="25.0" prefWidth="40.0" text="Adicionar..." />
+               </buttons>
+               <VBox.margin>
+                  <Insets right="10.0" />
+               </VBox.margin>
+            </ButtonBar>
+            <ButtonBar prefHeight="40.0" prefWidth="538.0">
+               <buttons>
+                  <TextField fx:id="field4Id" editable="false" prefHeight="25.0" prefWidth="581.0" />
+                  <Button fx:id="add4Id" alignment="CENTER" contentDisplay="RIGHT" maxWidth="50.0" minWidth="41.0" mnemonicParsing="false" onAction="#add4" prefHeight="25.0" prefWidth="40.0" text="Adicionar..." />
+               </buttons>
+               <VBox.margin>
+                  <Insets right="10.0" />
+               </VBox.margin>
+            </ButtonBar>
+            <ButtonBar prefHeight="40.0" prefWidth="538.0">
+               <buttons>
+                  <TextField fx:id="field5Id" editable="false" prefHeight="25.0" prefWidth="581.0" />
+                  <Button fx:id="add5Id" alignment="CENTER" contentDisplay="RIGHT" maxWidth="50.0" minWidth="41.0" mnemonicParsing="false" onAction="#add5" prefHeight="25.0" prefWidth="40.0" text="Adicionar..." />
+               </buttons>
+               <VBox.margin>
+                  <Insets right="10.0" />
+               </VBox.margin>
+            </ButtonBar>
+            <Button fx:id="confirmId" alignment="CENTER" mnemonicParsing="false" onAction="#confirm" prefHeight="25.0" prefWidth="570.0" text="Confirmar">
+               <VBox.margin>
+                  <Insets right="10.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+   </center>
+   <top>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Selecione os arquivos:" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="19.0" />
+         </font>
+         <BorderPane.margin>
+            <Insets top="10.0" />
+         </BorderPane.margin>
+      </Text>
+   </top>
+</BorderPane>
