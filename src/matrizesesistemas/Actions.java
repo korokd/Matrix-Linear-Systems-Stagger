@@ -51,7 +51,7 @@ public class Actions {
         return matrix;
 
     }
-    
+
     public static double[][] matrixStringToDouble(String[][] matrix) {
 
         double[][] matrixN = new double[matrix.length][matrix[0].length];
@@ -81,7 +81,25 @@ public class Actions {
 
         }
 
-        return null;
+        return matrixN;
+
+    }
+
+    public static String[][] matrixDoubleToString(double[][] matrixN) {
+
+        String[][] matrix = new String[matrixN.length][matrixN[0].length];
+
+        for (int i = 0; i < matrix.length; i++) {
+
+            for (int j = 0; j < matrix[0].length; j++) {
+
+                matrix[i][j] = String.valueOf(matrixN[i][j]);
+
+            }
+
+        }
+
+        return matrix;
 
     }
 
@@ -96,7 +114,7 @@ public class Actions {
         return String.valueOf(num / den);
 
     }
-    
+
     public static boolean verifyMatrix(List<String[]> matrix) {
 
         boolean doesAnyRowContainsNull = true;
@@ -138,23 +156,41 @@ public class Actions {
 
     }
 
-    public static void printMatrix(Matrix matrix) {
+    public static String printMatrix(Matrix matrix) {
+        
+        StringBuilder sb = new StringBuilder();
+        
+        for(String[] line : matrix.getMatrix()) {
+            
+            sb.append("\t| ");
+            
+            for(String element : line) {
+                
+                sb.append(String.format("%s " ,element));
+                
+            }
+            
+            sb.append("|\n");
+            
+        }
+        
+        return sb.toString();
+        
+        /*int contador = 0;
 
-        int contador = 0;
-
-        String print  = "";
+        String print = "";
 
         for (String[] line : matrix.getMatrix()) {
 
             print = String.format("\t%s%s", print, "|");
 
             for (String element : line) {
-                
+
                 print = String.format("\t%s%s", print, "|");
 
             }
 
-                System.out.printf("\t%s", "|");
+            System.out.printf("\t%s", "|");
 
             contador++;
 
@@ -166,7 +202,7 @@ public class Actions {
 
             System.out.println();
 
-        }
+        }*/
 
     }
 
@@ -196,8 +232,8 @@ public class Actions {
         return matrix;
 
     }
-    
-     public static double[][] matrixMinus(Matrix matrix1, Matrix matrix2) throws NotMatchingSizesException {
+
+    public static double[][] matrixMinus(Matrix matrix1, Matrix matrix2) throws NotMatchingSizesException {
 
         if (!(matrix1.getSize().equals(matrix2.getSize()))) {
 
@@ -222,6 +258,7 @@ public class Actions {
 
         return matrix;
     }
+
     public static double[][] matrixProduct(Matrix matrix1, Matrix matrix2) throws NotMatchingSizesException {
 
         int rows1, cols1, rows2, cols2;
@@ -257,7 +294,7 @@ public class Actions {
 
         }
 
-        return null;
+        return matrix;
 
     }
 
@@ -280,5 +317,5 @@ public class Actions {
         return matrixR;
 
     }
-    
+
 }
