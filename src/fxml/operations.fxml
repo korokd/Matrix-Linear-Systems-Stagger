@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="204.0" prefWidth="237.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.OperationsController">
+   <children>
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="233.0">
+         <children>
+            <Button layoutX="21.0" layoutY="65.0" mnemonicParsing="false" onAction="#sum" prefHeight="25.0" prefWidth="79.0" text="Somar" />
+            <Button layoutX="17.0" layoutY="165.0" mnemonicParsing="false" onAction="#showMatrix" prefHeight="25.0" prefWidth="200.0" text="Mostrar matriz" />
+            <Button layoutX="133.0" layoutY="65.0" mnemonicParsing="false" onAction="#minus" prefHeight="25.0" prefWidth="79.0" text="Subtrair" />
+            <Button layoutX="21.0" layoutY="115.0" mnemonicParsing="false" onAction="#multiply" prefHeight="25.0" prefWidth="79.0" text="Multiplicar" />
+            <Button layoutX="133.0" layoutY="115.0" mnemonicParsing="false" onAction="#transposition" prefHeight="25.0" prefWidth="79.0" text="Transpor" />
+            <Text layoutX="70.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Operações">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+   </children>
+</HBox>

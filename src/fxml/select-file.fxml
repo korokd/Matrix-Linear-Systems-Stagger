@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="204.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SelectFileController">
+   <children>
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="233.0">
+         <children>
+            <ButtonBar prefHeight="40.0" prefWidth="200.0" />
+            <Button layoutX="14.0" layoutY="165.0" mnemonicParsing="false" onAction="#add" text="Adicionar matriz" />
+            <Text layoutX="22.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Selecione os arquivos:">
+               <font>
+                  <Font name="Calibri" size="20.0" />
+               </font>
+            </Text>
+            <Button layoutX="125.0" layoutY="165.0" mnemonicParsing="false" onAction="#confirm" prefHeight="25.0" prefWidth="92.0" text="Confirmar" />
+         </children>
+      </AnchorPane>
+      <ListView fx:id="listViewId" prefHeight="400.0" prefWidth="371.0">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </ListView>
+   </children>
+</HBox>
