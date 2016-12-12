@@ -15,11 +15,11 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private static List<Matrix> matrixes = new ArrayList<>();
-    
+
     public static void addToMatrixes(File file) {
         matrixes.add(new Matrix(file));
     }
-    
+
     public List<Matrix> getMatrixes() {
         return matrixes;
     }
