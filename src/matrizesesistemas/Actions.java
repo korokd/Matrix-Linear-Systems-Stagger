@@ -1,5 +1,6 @@
 package matrizesesistemas;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -141,19 +142,19 @@ public class Actions {
 
         int contador = 0;
 
-        String format = "|";
+        String print  = "";
 
         for (String[] line : matrix.getMatrix()) {
 
-            System.out.printf("\t%s", format);
+            print = String.format("\t%s%s", print, "|");
 
             for (String element : line) {
-
-                System.out.printf("\t%s ", element);
+                
+                print = String.format("\t%s%s", print, "|");
 
             }
 
-            System.out.printf("\t%s", format);
+                System.out.printf("\t%s", "|");
 
             contador++;
 
