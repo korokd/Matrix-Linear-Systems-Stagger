@@ -15,14 +15,23 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    private static List<Matrix> matrixes = new ArrayList<>();
+    
+    public static void addToMatrixes(File file) {
+        matrixes.add(new Matrix(file));
+    }
+    
+    public List<Matrix> getMatrixes() {
+        return matrixes;
+    }
+
     public static void main(String[] args) {
         Application.launch(args);
     }
-    
-    
+
     @Override
     public void start(Stage stage) throws IOException {
-        
+
         URL arquivoFXML = getClass().getResource("../fxml/select-file.fxml");
         Parent fxmlParent = (Parent) FXMLLoader.load(arquivoFXML);
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/matrix-icon.jpg")));
