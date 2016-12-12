@@ -1,8 +1,14 @@
 package matrizesesistemas;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Matrix {
 
@@ -26,13 +32,46 @@ public class Matrix {
         return name;
     }
     
-    public Matrix(String matrixS, File file) {
+    public Matrix(File file) {
 
-        matrix = Actions.stringListToBi(Actions.toMatrix(matrixS));
+        matrix = Actions.stringListToBi(Actions.toMatrix(fileToString(file)));
         matrixN = Actions.matrixStringToDouble(matrix);
         size = String.format("%sx%s", matrix.length, matrix[0].length);
         name = file.getName();
 
+    }
+    
+    private String fileToString(File file) {
+        
+        try {
+            
+            String line = null;
+            FileReader fr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fr);
+            StringBuilder sb = new StringBuilder();
+            
+            while (line != null) {
+                sb.append(line);
+                sb.append(System.lineSeparator());
+                line = br.readLine();
+            }
+            
+            String matrixS = sb.toString();
+            
+            return matrixS;
+        
+        } catch (FileNotFoundException ex) {
+            
+            Logger.getLogger(Matrix.class.getName()).log(Level.SEVERE, null, ex);
+        
+        } catch (IOException ex) {
+            
+            Logger.getLogger(Matrix.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+        
+        return null;
+        
     }
 
 }
