@@ -12,8 +12,11 @@ import javafx.scene.Scene;
 
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import matrizesesistemas.InvalidMatrixesException;
 
-
+import matrizesesistemas.Actions;
+import matrizesesistemas.Main;
+import matrizesesistemas.NotMatchingSizesException;
         
 /** 
  * @author Leu <@leunardosevla at twitter.com>
@@ -21,28 +24,50 @@ import javafx.stage.Stage;
 
 public class OperationsController {  
     
-    public void sum () throws IOException{
+    public void sum (Main main) throws IOException, NotMatchingSizesException{
+        for(int i = 0; i < main.getMatrixes().size(); i++){
+            Actions.matrixSum( main.getMatrixes().get(i), main.getMatrixes().get(i+1));
+        }        
         generateMatrixStage();
         //TODO: add methods to sum matrixes
     }
     
-    public void minus () throws IOException {
+    public void minus (Main main) throws IOException, NotMatchingSizesException {
+        for(int i = 0; i < main.getMatrixes().size(); i++){
+            Actions.matrixMinus( main.getMatrixes().get(i), main.getMatrixes().get(i+1));
+        }        
         generateMatrixStage();
          //TODO: add methods to minus matrixes
     }
     
-    public void multiply () throws IOException {
+    public void multiply (Main main) throws IOException, NotMatchingSizesException {
+        for(int i = 0; i < main.getMatrixes().size(); i++){
+            Actions.matrixProduct( main.getMatrixes().get(i), main.getMatrixes().get(i+1));
+        }        
         generateMatrixStage();
          //TODO: add methods to multiply matrixes
     }
     
-    public void transposition () throws IOException {
-        generateMatrixStage();
+    public void transposition (Main main) throws IOException, InvalidMatrixesException {
+        
+        if(main.getMatrixes().size() > 1){
+            throw new InvalidMatrixesException("Selecione apenas uma matriz.");
+        } else {
+            Actions.matrixTrans(main.getMatrixes().get(0));
+            generateMatrixStage();
+
+        }
          //TODO: add methods to transpose matrixes
     }
     
-    public void showMatrix () throws IOException {
-        generateMatrixStage();
+    public void showMatrix (Main main) throws IOException, InvalidMatrixesException {
+        if(main.getMatrixes().size() > 1){
+            throw new InvalidMatrixesException("Selecione apenas uma matriz.");
+        } else {
+            Actions.printMatrix(main.getMatrixes().get(0));
+            generateMatrixStage();
+
+        }
          //TODO: add methods to show matrix
     }
     

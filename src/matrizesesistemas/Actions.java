@@ -170,11 +170,11 @@ public class Actions {
 
     }
 
-    public static double[][] matrixSum(Matrix matrix1, Matrix matrix2) throws NotMatchingSizesExpcetion {
+    public static double[][] matrixSum(Matrix matrix1, Matrix matrix2) throws NotMatchingSizesException {
 
         if (!(matrix1.getSize().equals(matrix2.getSize()))) {
 
-            throw new NotMatchingSizesExpcetion("Sizes are different");
+            throw new NotMatchingSizesException("Sizes are different");
 
         }
 
@@ -196,8 +196,33 @@ public class Actions {
         return matrix;
 
     }
+    
+     public static double[][] matrixMinus(Matrix matrix1, Matrix matrix2) throws NotMatchingSizesException {
 
-    public static double[][] matrixProduct(Matrix matrix1, Matrix matrix2) throws NotMatchingSizesExpcetion {
+        if (!(matrix1.getSize().equals(matrix2.getSize()))) {
+
+            throw new NotMatchingSizesException("Sizes are different");
+
+        }
+
+        int rows = matrix1.getMatrixN().length;
+        int cols = matrix1.getMatrixN()[0].length;
+
+        double[][] matrix = new double[rows][cols];
+
+        for (int i = 0; i < rows; i++) {
+
+            for (int j = 0; j < cols; j++) {
+
+                matrix[i][j] = matrix1.getMatrixN()[i][j] - matrix2.getMatrixN()[i][j];
+
+            }
+
+        }
+
+        return matrix;
+    }
+    public static double[][] matrixProduct(Matrix matrix1, Matrix matrix2) throws NotMatchingSizesException {
 
         int rows1, cols1, rows2, cols2;
         String[] aux;
@@ -210,7 +235,7 @@ public class Actions {
 
         if (!(rows1 == cols2)) {
 
-            throw new NotMatchingSizesExpcetion("Sizes are different");
+            throw new NotMatchingSizesException("Sizes are different");
 
         }
 
