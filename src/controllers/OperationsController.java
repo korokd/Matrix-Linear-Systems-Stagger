@@ -30,14 +30,9 @@ public class OperationsController {
         
         int q = Main.getMatrixes().size();
         if (q == 2) {
-            String stringMatrix = Actions.printMatrix(Actions.matrixDoubleToString(Actions.matrixSum(Main.getMatrixes().get(0), Main.getMatrixes().get(1))));
-        } else if (q == 3) {
             Main.addToMatrixes(Actions.matrixSum(Main.getMatrixes().get(0), Main.getMatrixes().get(1)));
-            String stringMatrix = Actions.printMatrix(Actions.matrixDoubleToString(Actions.matrixSum(Main.getMatrixes().get(2), Main.getMatrixes().get(3))));
-        } else if (q == 4) {
-            Main.addToMatrixes(Actions.matrixSum(Main.getMatrixes().get(0), Main.getMatrixes().get(1)));
-            Main.addToMatrixes(Actions.matrixSum(Main.getMatrixes().get(2), Main.getMatrixes().get(3)));
-            String stringMatrix = Actions.printMatrix(Actions.matrixDoubleToString(Actions.matrixSum(Main.getMatrixes().get(5), Main.getMatrixes().get(6))));
+            stringMatrix = Actions.printMatrix(Main.getMatrixes().get(2));                        
+
         }
         
         generateMatrixStage();
@@ -52,14 +47,9 @@ public class OperationsController {
 //        }
         int q = Main.getMatrixes().size();
         if (q == 2) {
-            String stringMatrix = Actions.printMatrix(Actions.matrixDoubleToString(Actions.matrixSum(Main.getMatrixes().get(0), Main.getMatrixes().get(1))));
-        } else if (q == 3) {
-            Main.addToMatrixes(Actions.matrixMinus(Main.getMatrixes().get(0), Main.getMatrixes().get(1)));
-            String stringMatrix = Actions.printMatrix(Actions.matrixDoubleToString(Actions.matrixSum(Main.getMatrixes().get(2), Main.getMatrixes().get(3))));
-        } else if (q == 4) {
-            Main.addToMatrixes(Actions.matrixMinus(Main.getMatrixes().get(0), Main.getMatrixes().get(1)));
-            Main.addToMatrixes(Actions.matrixMinus(Main.getMatrixes().get(2), Main.getMatrixes().get(3)));
-            String stringMatrix = Actions.printMatrix(Actions.matrixDoubleToString(Actions.matrixSum(Main.getMatrixes().get(5), Main.getMatrixes().get(6))));
+           
+           Main.addToMatrixes(Actions.matrixSum(Main.getMatrixes().get(0), Main.getMatrixes().get(1)));
+           stringMatrix = Actions.printMatrix(Main.getMatrixes().get(2));
         }
         
         generateMatrixStage();
@@ -78,14 +68,11 @@ public class OperationsController {
         
         int q = Main.getMatrixes().size();
         if (q == 2) {
-            String stringMatrix = Actions.printMatrix(Actions.matrixDoubleToString(Actions.matrixSum(Main.getMatrixes().get(0), Main.getMatrixes().get(1))));
-        } else if (q == 3) {
-            Main.addToMatrixes(Actions.matrixProduct(Main.getMatrixes().get(0), Main.getMatrixes().get(1)));
-            String stringMatrix = Actions.printMatrix(Actions.matrixDoubleToString(Actions.matrixSum(Main.getMatrixes().get(2), Main.getMatrixes().get(3))));
-        } else if (q == 4) {
-            Main.addToMatrixes(Actions.matrixProduct(Main.getMatrixes().get(0), Main.getMatrixes().get(1)));
-            Main.addToMatrixes(Actions.matrixProduct(Main.getMatrixes().get(2), Main.getMatrixes().get(3)));
-            String stringMatrix = Actions.printMatrix(Actions.matrixDoubleToString(Actions.matrixSum(Main.getMatrixes().get(5), Main.getMatrixes().get(6))));
+            
+           stringMatrix = Actions.printMatrix(Actions.matrixDoubleToString(Actions.matrixProduct(Main.getMatrixes().get(0), Main.getMatrixes().get(1))));
+            
+           
+            
         }
         
         generateMatrixStage();

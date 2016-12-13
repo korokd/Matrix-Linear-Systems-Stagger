@@ -165,11 +165,11 @@ public class Actions {
             
             for(String element : line) {
                 
-                sb.append(String.format("\t%s " ,element));
+                sb.append(String.format("\t%s \t" ,element));
                 
             }
             
-            sb.append("|\n");
+            sb.append("\t|\n");
             
         }
         
@@ -187,11 +187,11 @@ public class Actions {
             
             for(String element : line) {
                 
-                sb.append(String.format("\t%s " ,element));
+                sb.append(String.format("\t%s \t" ,element));
                 
             }
             
-            sb.append("|\n");
+            sb.append("\t|\n");
             
         }
         
@@ -206,6 +206,17 @@ public class Actions {
             throw new NotMatchingSizesException("Sizes are different");
 
         }
+        
+//        for(String[] a : matrix1.getMatrix()) {
+//            for(String b : a) {
+//                System.out.println(b);
+//            }
+//        }
+//        for(String[] a : matrix2.getMatrix()) {
+//            for(String b : a) {
+//                System.out.println(b);
+//            }
+//        }
 
         int rows = matrix1.getMatrixN().length;
         int cols = matrix1.getMatrixN()[0].length;
@@ -215,9 +226,9 @@ public class Actions {
         for (int i = 0; i < rows; i++) {
 
             for (int j = 0; j < cols; j++) {
-
-                matrix[i][j] = matrix1.getMatrixN()[i][j] + matrix2.getMatrixN()[i][j];
-
+                
+                matrix[i][j] = Integer.parseInt(matrix1.getMatrix()[i][j]) + Integer.parseInt((matrix2.getMatrix()[i][j]));                
+                
             }
 
         }
@@ -242,12 +253,13 @@ public class Actions {
         for (int i = 0; i < rows; i++) {
 
             for (int j = 0; j < cols; j++) {
-
-                matrix[i][j] = matrix1.getMatrixN()[i][j] - matrix2.getMatrixN()[i][j];
-
+                System.out.println((matrix1.getMatrix()[i][j] + matrix2.getMatrixN()[i][j]));
+                matrix[i][j] = Integer.parseInt(matrix1.getMatrix()[i][j]) - Integer.parseInt((matrix2.getMatrix()[i][j]));                
+                
             }
 
         }
+
 
         return matrix;
     }
@@ -272,14 +284,10 @@ public class Actions {
         double[][] matrix = new double[cols1][rows2];
 
         for (int i = 0; i < rows1; i++) {
-
             for (int j = 0; j < cols2; j++) {
-
-                matrix[i][j] = 0;
-
                 for (int k = 0; k < cols1; k++) {
-
-                    matrix[i][j] = matrix[i][j] + (matrix1.getMatrixN()[i][k] * matrix2.getMatrixN()[k][j]);
+                    System.out.println(Integer.parseInt(matrix1.getMatrix()[i][k]) + "*" + Integer.parseInt(matrix2.getMatrix()[k][j]) );
+                    matrix[i][j] +=(Integer.parseInt(matrix1.getMatrix()[i][k]) * Integer.parseInt(matrix2.getMatrix()[k][j]));
 
                 }
 
@@ -300,7 +308,7 @@ public class Actions {
 
         while(i <= col - 1) {
             
-            matrixT[i][j] = matrix.getMatrixN()[j][i];
+            matrixT[i][j] = Integer.parseInt(matrix.getMatrix()[j][i]);
             j++;
             
             if(j > 0 && j/row == 1) {
