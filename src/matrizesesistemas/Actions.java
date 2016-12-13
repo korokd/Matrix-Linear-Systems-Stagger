@@ -115,7 +115,7 @@ public class Actions {
 
     }
 
-    public static boolean verifyMatrix(List<String[]> matrix) {
+    public static boolean verifyMatrix(String[][] matrix) {
 
         boolean doesAnyRowContainsNull = true;
 
