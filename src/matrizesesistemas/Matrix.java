@@ -33,33 +33,46 @@ public class Matrix {
     }
 
     //build from a file
-    public Matrix(File file) {
-        //String fileString = Actions.toMatrix((fileToString(file)));
-        matrix = Actions.stringListToBi(Actions.toMatrix(fileToString(file)));
-        matrixN = Actions.matrixStringToDouble(matrix);
-        size = String.format("%sx%s", matrix.length, matrix[0].length);
-        name = file.getName();
+    public Matrix(File file) throws InvalidMatrixException {
+        
+        if(!(Actions.verifyMatrix(Actions.stringListToBi(Actions.toMatrix(fileToString(file)))))){
+            throw new InvalidMatrixException("Matriz Invalida");
+        } else {
+            //String fileString = Actions.toMatrix((fileToString(file)));
+            matrix = Actions.stringListToBi(Actions.toMatrix(fileToString(file)));
+            matrixN = Actions.matrixStringToDouble(matrix);
+            size = String.format("%sx%s", matrix.length, matrix[0].length);
+            name = file.getName();
+        }
         
     }
 
     //build from a sum, minus, product operation
-    public Matrix(double[][] matrixN, File file1, File file2, String operation) {
-
-        matrix = Actions.matrixDoubleToString(matrixN);
-        this.matrixN = matrixN;
-        size = String.format("%sx%s", matrix.length, matrix[0].length);
-        name = String.format("%s%s%s", file1.getName(), operation, file2.getName());
-
+    public Matrix(double[][] matrixN, File file1, File file2, String operation) throws InvalidMatrixException {
+        
+        if(!(Actions.verifyMatrix(Actions.matrixDoubleToString(matrixN)))) {
+            throw new InvalidMatrixException("Matriz Invalida");
+        } else {
+            matrix = Actions.matrixDoubleToString(matrixN);
+            this.matrixN = matrixN;
+            size = String.format("%sx%s", matrix.length, matrix[0].length);
+            name = String.format("%s%s%s", file1.getName(), operation, file2.getName());
+        }
+        
     }
 
     //build from a transposition operation
-    public Matrix(double[][] matrixN, File file) {
-
-        matrix = Actions.matrixDoubleToString(matrixN);
-        this.matrixN = matrixN;
-        size = String.format("%sx%s", matrix.length, matrix[0].length);
-        name = String.format("%s -t", file.getName());
-
+    public Matrix(double[][] matrixN, File file) throws InvalidMatrixException {
+        
+        if(!(Actions.verifyMatrix(Actions.matrixDoubleToString(matrixN)))) {
+            throw new InvalidMatrixException("Matriz Invalida");
+        } else {
+            matrix = Actions.matrixDoubleToString(matrixN);
+            this.matrixN = matrixN;
+            size = String.format("%sx%s", matrix.length, matrix[0].length);
+            name = String.format("%s -t", file.getName());
+        }
+        
     }
 
     private String fileToString(File file) {
