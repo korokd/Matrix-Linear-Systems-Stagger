@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Actions {
-
+    private static List<Integer>
+            globalX = new ArrayList<Integer>(),
+            globalY = new ArrayList<Integer>();
     public static List<String[]> toMatrix(String matrixS) {
 
         List<String[]> matrix = new ArrayList<>();
@@ -16,16 +18,16 @@ public class Actions {
 
         for (String wholeRow : pristineRow) {
 
-            wholeRow = wholeRow.replaceAll("[^0-9|\\.|\\/|\\-|\\,]+", "~");
+            wholeRow = wholeRow.replaceAll("[^0-9|\\.|\\/|\\-|\\,|\\;]+", "~");
 
             StringBuilder sbWholeRow = new StringBuilder(wholeRow);
 
             sbWholeRow.deleteCharAt(0);
 
             wholeRow = sbWholeRow.toString();
-
+            System.out.println(wholeRow);
             row = wholeRow.split("~");
-
+            
             matrix.add(row);
 
         }
@@ -53,18 +55,25 @@ public class Actions {
     }
 
     public static double[][] matrixStringToDouble(String[][] matrix) {
-
-        double[][] matrixN = new double[matrix.length][matrix[0].length];
+        int x = matrix.length;
+        int y = matrix[0].length;
+        globalX.add(x);
+        globalY.add(y);
+        if(matrix[0].length >= 6){
+            x =  99;
+            y = 99;
+        }
+        double[][] matrixN = new double[x][y];
 
         int contRow = 0;
         int contCol = 0;
 
         for (String[] a : matrix) {
-
+            contCol = 0;
             for (String b : a) {
-
+                
                 b = b.replaceAll(",", ".");
-
+                b = b.replaceAll(";", ";\\s ");
                 if (b.contains("/")) {
 
                     b = fractionToDecimal(b);
@@ -74,10 +83,11 @@ public class Actions {
                 matrixN[contRow][contCol] = Double.parseDouble(b);
 
                
-                
+               
             }
-            contCol++;
             contRow++;
+            contCol++;
+            
         }
 
         return matrixN;
@@ -161,7 +171,7 @@ public class Actions {
         
         for(String[] line : matrix.getMatrix()) {
             
-            sb.append("\t| ");
+            sb.append("\t|");
             
             for(String element : line) {
                 
@@ -183,7 +193,7 @@ public class Actions {
         
         for(String[] line : matrix) {
             
-            sb.append("\t| ");
+            sb.append("\t|");
             
             for(String element : line) {
                 
@@ -206,22 +216,11 @@ public class Actions {
             throw new NotMatchingSizesException("Sizes are different");
 
         }
-        
-//        for(String[] a : matrix1.getMatrix()) {
-//            for(String b : a) {
-//                System.out.println(b);
-//            }
-//        }
-//        for(String[] a : matrix2.getMatrix()) {
-//            for(String b : a) {
-//                System.out.println(b);
-//            }
-//        }
 
-        int rows = matrix1.getMatrixN().length;
-        int cols = matrix1.getMatrixN()[0].length;
-
-        double[][] matrix = new double[rows][cols];
+        int rows = globalX.get(0);
+        int cols = globalY.get(0);
+       
+        double[][] matrix = new double [rows][cols];
 
         for (int i = 0; i < rows; i++) {
 
@@ -245,16 +244,16 @@ public class Actions {
 
         }
 
-        int rows = matrix1.getMatrixN().length;
-        int cols = matrix1.getMatrixN()[0].length;
-
+        int rows = globalX.get(0);
+        int cols = globalY.get(0);
+        
         double[][] matrix = new double[rows][cols];
 
         for (int i = 0; i < rows; i++) {
 
             for (int j = 0; j < cols; j++) {
-                System.out.println((matrix1.getMatrix()[i][j] + matrix2.getMatrixN()[i][j]));
-                matrix[i][j] = Integer.parseInt(matrix1.getMatrix()[i][j]) - Integer.parseInt((matrix2.getMatrix()[i][j]));                
+               
+                matrix[i][j] = Double.parseDouble(matrix1.getMatrix()[i][j]) - Double.parseDouble((matrix2.getMatrix()[i][j]));                
                 
             }
 
@@ -265,13 +264,16 @@ public class Actions {
     }
 
     public static double[][] matrixProduct(Matrix matrix1, Matrix matrix2) throws NotMatchingSizesException {
-
+        String[] aux = {null,null};       
+        
         int rows1, cols1, rows2, cols2;
-        String[] aux = {null,null};
-        aux = matrix1.getSize().split("x");
+        
+        aux [0]= Integer.toString(globalX.get(0));
+        aux [1]= Integer.toString(globalY.get(0));
         rows1 = Integer.parseInt(aux[0]);
         cols1 = Integer.parseInt(aux[1]);
-        aux = matrix2.getSize().split("x");
+        aux [0]= Integer.toString(globalX.get(1));
+        aux [1]= Integer.toString(globalY.get(1));
         rows2 = Integer.parseInt(aux[0]);
         cols2 = Integer.parseInt(aux[1]);
 
@@ -286,8 +288,8 @@ public class Actions {
         for (int i = 0; i < rows1; i++) {
             for (int j = 0; j < cols2; j++) {
                 for (int k = 0; k < cols1; k++) {
-                    System.out.println(Integer.parseInt(matrix1.getMatrix()[i][k]) + "*" + Integer.parseInt(matrix2.getMatrix()[k][j]) );
-                    matrix[i][j] +=(Integer.parseInt(matrix1.getMatrix()[i][k]) * Integer.parseInt(matrix2.getMatrix()[k][j]));
+                    
+                    matrix[i][j] =(Double.parseDouble(matrix1.getMatrix()[i][k]) * Double.parseDouble(matrix2.getMatrix()[k][j]));
 
                 }
 
@@ -308,7 +310,7 @@ public class Actions {
 
         while(i <= col - 1) {
             
-            matrixT[i][j] = Integer.parseInt(matrix.getMatrix()[j][i]);
+            matrixT[i][j] = Double.parseDouble(matrix.getMatrix()[j][i]);
             j++;
             
             if(j > 0 && j/row == 1) {
