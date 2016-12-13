@@ -292,22 +292,37 @@ public class Actions {
     }
 
     public static double[][] matrixTrans(Matrix matrix) {
-       
+        
+        int i = 0, j = 0;
         int row = matrix.getMatrixN().length;
         int col = matrix.getMatrixN()[0].length;
-        double[][] matrixR = new double[col][row];
+        double[][] matrixT = new double[col][row];
 
-        for (int i = 0; i < row; i++) {
+        while(i <= col - 1) {
+            
+            matrixT[i][j] = matrix.getMatrixN()[j][i];
+            j++;
+            
+            if(j > 0 && j/row == 1) {
+                
+                i++;
+                j = 0;
+                                
+            }
+            
+        }
+        
+        /*for (int i = 0; i < col; i++) {
 
-            for (int j = 0; j < col; j++) {
+            for (int j = 0; j < row; j++) {
 
-                matrixR[j][i] = matrix.getMatrixN()[i][j];
+                matrixT[j][i] = matrix.getMatrixN()[i][j];
 
             }
 
-        }
+        }*/
 
-        return matrixR;
+        return matrixT;
 
     }
     

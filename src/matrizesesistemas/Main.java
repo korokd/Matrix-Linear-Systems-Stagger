@@ -20,6 +20,15 @@ public class Main extends Application {
         Matrix matrix = new Matrix(file);
         matrixes.add(matrix);
     }
+    
+    public static void addToMatrixes(double[][] matrixN) throws InvalidMatrixException {
+        Matrix matrix = new Matrix(matrixN);
+        matrixes.add(matrix);
+    }
+    
+    public static void removeFromMatrixes() {
+        matrixes.remove(0);
+    }
 
     public static List<Matrix> getMatrixes() {
         return matrixes;

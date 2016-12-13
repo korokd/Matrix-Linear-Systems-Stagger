@@ -14,7 +14,7 @@ public class Matrix {
 
     private String[][] matrix;
     private double[][] matrixN;
-    private String size, name;
+    private String size;
 
     public String[][] getMatrix() {
         return matrix;
@@ -28,10 +28,6 @@ public class Matrix {
         return size;
     }
 
-    public String getName() {
-        return name;
-    }
-
     //build from a file
     public Matrix(File file) throws InvalidMatrixException {
         
@@ -42,7 +38,6 @@ public class Matrix {
             matrix = Actions.stringListToBi(Actions.toMatrix(fileToString(file)));
             matrixN = Actions.matrixStringToDouble(matrix);
             size = String.format("%sx%s", matrix.length, matrix[0].length);
-            name = file.getName();
         }
         
     }
@@ -56,13 +51,12 @@ public class Matrix {
             matrix = Actions.matrixDoubleToString(matrixN);
             this.matrixN = matrixN;
             size = String.format("%sx%s", matrix.length, matrix[0].length);
-            name = String.format("%s%s%s", file1.getName(), operation, file2.getName());
         }
         
     }
 
     //build from a transposition operation
-    public Matrix(double[][] matrixN, File file) throws InvalidMatrixException {
+    public Matrix(double[][] matrixN) throws InvalidMatrixException {
         
         if(!(Actions.verifyMatrix(Actions.matrixDoubleToString(matrixN)))) {
             throw new InvalidMatrixException("Matriz Invalida");
@@ -70,7 +64,6 @@ public class Matrix {
             matrix = Actions.matrixDoubleToString(matrixN);
             this.matrixN = matrixN;
             size = String.format("%sx%s", matrix.length, matrix[0].length);
-            name = String.format("%s -t", file.getName());
         }
         
     }
