@@ -10,7 +10,7 @@ import javafx.scene.Scene;
 
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import matrizesesistemas.InvalidMatrixesException;
+import matrizesesistemas.InvalidMatrixException;
 
 import matrizesesistemas.Actions;
 import matrizesesistemas.Main;
@@ -46,7 +46,7 @@ public class OperationsController {
         //TODO: add methods to multiply matrixes
     }
 
-    public void transposition() throws IOException, InvalidMatrixesException {
+    public void transposition() throws IOException, InvalidMatrixException {
 
 //        if (main.getMatrixes().size() > 1) {
 //            throw new InvalidMatrixesException("Selecione apenas uma matriz.");
@@ -58,13 +58,13 @@ public class OperationsController {
         //TODO: add methods to transpose matrixes
     }
 
-    public void showMatrix() throws IOException, InvalidMatrixesException {
-        Main main = new Main();
-        if (main.getMatrixes().size() > 1) {
-            throw new InvalidMatrixesException("Selecione apenas uma matriz.");
+    public void showMatrix() throws IOException, InvalidMatrixException {
+        
+        if (Main.getMatrixes().size() > 1) {
+            throw new InvalidMatrixException("Selecione apenas uma matriz.");
         } else {
-            stringMatrix = Actions.printMatrix(main.getMatrixes().get(0));
-            stringSize = main.getMatrixes().get(0).getSize();
+            stringMatrix = Actions.printMatrix(Main.getMatrixes().get(0));
+            stringSize = Main.getMatrixes().get(0).getSize();
             generateMatrixStage();
 
         }
