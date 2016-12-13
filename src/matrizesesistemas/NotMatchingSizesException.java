@@ -1,6 +1,6 @@
 package matrizesesistemas;
 
-public class NotMatchingSizesException extends InvalidMatrixesException {
+public class NotMatchingSizesException extends InvalidMatrixException {
 
     public NotMatchingSizesException() {
 
