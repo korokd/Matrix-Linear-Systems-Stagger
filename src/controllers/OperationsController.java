@@ -22,57 +22,95 @@ import matrizesesistemas.NotMatchingSizesException;
  */
 public class OperationsController {
 
-    static String stringMatrix, stringSize;
-    static double[][] doubleTrans;
-    static String[][] stringTrans;
-
+    static String stringMatrix, stringSize;    
+    
     public void sum() throws IOException, NotMatchingSizesException, InvalidMatrixException {
         
         int q = Main.getMatrixes().size();
         if (q == 2) {
             Main.addToMatrixes(Actions.matrixSum(Main.getMatrixes().get(0), Main.getMatrixes().get(1)));
-            stringMatrix = Actions.printMatrix(Main.getMatrixes().get(2));                        
-
+            stringMatrix = Actions.printMatrix(Main.getMatrixes().get(2)); 
+            stringSize = Main.getMatrixes().get(2).getSize();
         }
-        
+        if (q == 3) {
+            Main.addToMatrixes(Actions.matrixSum(Main.getMatrixes().get(0), Main.getMatrixes().get(1)));
+            Main.addToMatrixes(Actions.matrixSum(Main.getMatrixes().get(2), Main.getMatrixes().get(3)));
+            stringMatrix = Actions.printMatrix(Main.getMatrixes().get(4)); 
+            stringSize = Main.getMatrixes().get(4).getSize();
+        }
+        if (q == 4){
+            Main.addToMatrixes(Actions.matrixSum(Main.getMatrixes().get(0), Main.getMatrixes().get(1)));
+            Main.addToMatrixes(Actions.matrixSum(Main.getMatrixes().get(2), Main.getMatrixes().get(3)));
+            Main.addToMatrixes(Actions.matrixSum(Main.getMatrixes().get(4), Main.getMatrixes().get(5)));
+            stringMatrix = Actions.printMatrix(Main.getMatrixes().get(6)); 
+            stringSize = stringSize = Main.getMatrixes().get(6).getSize();
+        }
         generateMatrixStage();
         //TODO: add methods to sum matrixes
         
     }
 
     public void minus() throws IOException, NotMatchingSizesException, InvalidMatrixException {
-//        for (int i = 0; i < main.getMatrixes().size(); i++) {
-//            System.out.println(main.getMatrixes().size());
-//            Actions.matrixMinus(main.getMatrixes().get(i), main.getMatrixes().get(i + 1));
-//        }
+        
         int q = Main.getMatrixes().size();
-        if (q == 2) {
-           
-           Main.addToMatrixes(Actions.matrixSum(Main.getMatrixes().get(0), Main.getMatrixes().get(1)));
+        if (q == 2) {           
+           Main.addToMatrixes(Actions.matrixMinus(Main.getMatrixes().get(0), Main.getMatrixes().get(1)));
            stringMatrix = Actions.printMatrix(Main.getMatrixes().get(2));
+           stringSize = Main.getMatrixes().get(2).getSize();
         }
+        
+        if(q == 3){
+            Main.addToMatrixes(Actions.matrixMinus(Main.getMatrixes().get(0), Main.getMatrixes().get(1)));
+            Main.addToMatrixes(Actions.matrixMinus(Main.getMatrixes().get(2), Main.getMatrixes().get(3)));
+            stringMatrix = Actions.printMatrix(Main.getMatrixes().get(3));
+            stringSize = Main.getMatrixes().get(3).getSize();
+        }
+        
+        if (q == 4){
+            Main.addToMatrixes(Actions.matrixMinus(Main.getMatrixes().get(0), Main.getMatrixes().get(1)));
+            Main.addToMatrixes(Actions.matrixMinus(Main.getMatrixes().get(2), Main.getMatrixes().get(3)));
+            Main.addToMatrixes(Actions.matrixMinus(Main.getMatrixes().get(4), Main.getMatrixes().get(5)));
+            stringMatrix = Actions.printMatrix(Main.getMatrixes().get(6));
+            stringSize = Main.getMatrixes().get(6).getSize();
+        }
+        
         
         generateMatrixStage();
         //TODO: add methods to minus matrixes
     }
 
     public void multiply() throws IOException, NotMatchingSizesException, InvalidMatrixException {
-//        for (int i = 0; i < Main.getMatrixes().size(); i++) {
-//            doubleTrans = Actions.matrixProduct(Main.getMatrixes().get(i), Main.getMatrixes().get(i+1));
-//        }
-//        stringMatrix = Actions.printMatrix(stringTrans);
-//        stringSize = Main.getMatrixes().get(0).getSize();
-        if(Main.getMatrixes().size() == 1) {
-            throw new InvalidMatrixException("Selecione de duas a quatro matrizes");
+        int q = Main.getMatrixes().size();
+        
+        if(q == 1) {
+            throw new InvalidMatrixException("Selecione mais de uma matriz!");
         }
         
-        int q = Main.getMatrixes().size();
-        if (q == 2) {
-            
-           stringMatrix = Actions.printMatrix(Actions.matrixDoubleToString(Actions.matrixProduct(Main.getMatrixes().get(0), Main.getMatrixes().get(1))));
-            
-           
-            
+        
+        if (q == 2) {            
+           Main.addToMatrixes(Actions.matrixProduct
+                (Main.getMatrixes().get(0), Main.getMatrixes().get(1)));
+           stringMatrix = Actions.printMatrix(Main.getMatrixes().get(2));
+           stringSize = Main.getMatrixes().get(2).getSize();            
+        }
+        if (q == 3) {
+            Main.addToMatrixes(Actions.matrixProduct
+                (Main.getMatrixes().get(0), Main.getMatrixes().get(1)));
+            Main.addToMatrixes(Actions.matrixProduct
+                (Main.getMatrixes().get(2), Main.getMatrixes().get(3)));
+            stringMatrix = Actions.printMatrix(Main.getMatrixes().get(4));
+            stringSize = Main.getMatrixes().get(4).getSize();
+        }
+        
+        if (q == 4) {
+            Main.addToMatrixes(Actions.matrixProduct
+                (Main.getMatrixes().get(0), Main.getMatrixes().get(1)));
+            Main.addToMatrixes(Actions.matrixProduct
+                (Main.getMatrixes().get(2), Main.getMatrixes().get(3)));
+            Main.addToMatrixes(Actions.matrixProduct
+                (Main.getMatrixes().get(4), Main.getMatrixes().get(5)));
+            stringMatrix = Actions.printMatrix(Main.getMatrixes().get(5));
+            stringSize = Main.getMatrixes().get(5).getSize();
         }
         
         generateMatrixStage();
@@ -84,14 +122,11 @@ public class OperationsController {
         if (Main.getMatrixes().size() > 1) {
             throw new InvalidMatrixException("Selecione apenas uma matriz.");
         } else {
-            doubleTrans = Actions.matrixTrans(Main.getMatrixes().get(0));
-            Main.addToMatrixes(doubleTrans);
-            stringTrans = Main.getMatrixes().get(Main.getMatrixes().size()-1).getMatrix();
-            //stringTrans = Actions.matrixDoubleToString(doubleTrans);
-            stringMatrix = Actions.printMatrix(stringTrans);
-            stringSize = Main.getMatrixes().get(Main.getMatrixes().size()-1).getSize();
-            generateMatrixStage();
-            Main.removeFromMatrixes();
+            Main.addToMatrixes(Actions.matrixTrans(Main.getMatrixes().get(0)));            
+            stringMatrix = Actions.printMatrix(Main.getMatrixes().get(1));            
+            stringSize = Main.getMatrixes().get(1).getSize();
+            
+            generateMatrixStage();            
 
         }
     }
