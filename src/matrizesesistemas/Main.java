@@ -16,12 +16,12 @@ public class Main extends Application {
 
     private static List<Matrix> matrixes = new ArrayList<>();
 
-    public static void addToMatrixes(File file) {
+    public static void addToMatrixes(File file) throws InvalidMatrixException {
         Matrix matrix = new Matrix(file);
         matrixes.add(matrix);
     }
 
-    public List<Matrix> getMatrixes() {
+    public static List<Matrix> getMatrixes() {
         return matrixes;
     }
 
