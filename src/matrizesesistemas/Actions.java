@@ -166,7 +166,7 @@ public class Actions {
             
             for(String element : line) {
                 
-                sb.append(String.format("%s " ,element));
+                sb.append(String.format("\t%s " ,element));
                 
             }
             
