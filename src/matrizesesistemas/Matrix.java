@@ -34,12 +34,12 @@ public class Matrix {
 
     //build from a file
     public Matrix(File file) {
-
+        //String fileString = Actions.toMatrix((fileToString(file)));
         matrix = Actions.stringListToBi(Actions.toMatrix(fileToString(file)));
         matrixN = Actions.matrixStringToDouble(matrix);
         size = String.format("%sx%s", matrix.length, matrix[0].length);
         name = file.getName();
-
+        
     }
 
     //build from a sum, minus, product operation
@@ -66,9 +66,10 @@ public class Matrix {
 
         try {
 
-            String line = null;
+            
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
+            String line = br.readLine();
             StringBuilder sb = new StringBuilder();
 
             while (line != null) {

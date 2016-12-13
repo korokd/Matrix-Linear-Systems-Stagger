@@ -17,6 +17,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import matrizesesistemas.Main;
 
+
 /**
  * @author Leu <@leunardosevla at twitter.com>
  *
@@ -24,7 +25,7 @@ import matrizesesistemas.Main;
 public class SelectFileController {
 
     private ObservableList<String> nomeArquivos = observableArrayList(); //lista para printar o nome no ListView
-    static List<File> selectedFiles = new ArrayList<File>(); //lista dos arquivos
+   
 
     @FXML
     ListView<String> listViewId;
@@ -45,8 +46,7 @@ public class SelectFileController {
             //o seu nome no nomeArquivos.
             for (File file : files) {
                 nomeArquivos.clear();
-                nomeArquivos.add(file.getName());
-                selectedFiles.add(file);
+                nomeArquivos.add(file.getName());                
                 listViewId.getItems().addAll(nomeArquivos);
                 Main.addToMatrixes(file);
             }
@@ -55,8 +55,9 @@ public class SelectFileController {
     }
 
     public void confirm() throws IOException {
-
-        if (!selectedFiles.isEmpty()) {
+        Main main = new Main();
+        
+        if (!main.getMatrixes().isEmpty()) {
             Stage operationsStage = new Stage();
             URL arquivoFXML = getClass().getResource("../fxml/operations.fxml");
             Parent fxmlParent = (Parent) FXMLLoader.load(arquivoFXML);

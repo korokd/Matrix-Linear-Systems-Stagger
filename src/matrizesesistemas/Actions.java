@@ -63,7 +63,7 @@ public class Actions {
 
             for (String b : a) {
 
-                b.replace(",", ".");
+                b = b.replaceAll(",", ".");
 
                 if (b.contains("/")) {
 
@@ -73,10 +73,10 @@ public class Actions {
 
                 matrixN[contRow][contCol] = Double.parseDouble(b);
 
-                contCol++;
+               
 
             }
-
+            contCol++;
             contRow++;
 
         }

@@ -21,48 +21,50 @@ import matrizesesistemas.NotMatchingSizesException;
  *
  */
 public class OperationsController {
+    static String stringMatrix, stringSize;
 
-    public void sum(Main main) throws IOException, NotMatchingSizesException {
-        for (int i = 0; i < main.getMatrixes().size(); i++) {
-            Actions.matrixSum(main.getMatrixes().get(i), main.getMatrixes().get(i + 1));
-        }
+    public void sum() throws IOException, NotMatchingSizesException {
+        
         generateMatrixStage();
         //TODO: add methods to sum matrixes
     }
 
-    public void minus(Main main) throws IOException, NotMatchingSizesException {
-        for (int i = 0; i < main.getMatrixes().size(); i++) {
-            Actions.matrixMinus(main.getMatrixes().get(i), main.getMatrixes().get(i + 1));
-        }
+    public void minus() throws IOException, NotMatchingSizesException {
+//        for (int i = 0; i < main.getMatrixes().size(); i++) {
+//            System.out.println(main.getMatrixes().size());
+//            Actions.matrixMinus(main.getMatrixes().get(i), main.getMatrixes().get(i + 1));
+//        }
         generateMatrixStage();
         //TODO: add methods to minus matrixes
     }
 
-    public void multiply(Main main) throws IOException, NotMatchingSizesException {
-        for (int i = 0; i < main.getMatrixes().size(); i++) {
-            Actions.matrixProduct(main.getMatrixes().get(i), main.getMatrixes().get(i + 1));
-        }
+    public void multiply() throws IOException, NotMatchingSizesException {
+//        for (int i = 0; i < main.getMatrixes().size(); i++) {
+//            Actions.matrixProduct(main.getMatrixes().get(i), main.getMatrixes().get(i + 1));
+//        }
         generateMatrixStage();
         //TODO: add methods to multiply matrixes
     }
 
-    public void transposition(Main main) throws IOException, InvalidMatrixesException {
+    public void transposition() throws IOException, InvalidMatrixesException {
 
-        if (main.getMatrixes().size() > 1) {
-            throw new InvalidMatrixesException("Selecione apenas uma matriz.");
-        } else {
-            Actions.matrixTrans(main.getMatrixes().get(0));
-            generateMatrixStage();
-
-        }
+//        if (main.getMatrixes().size() > 1) {
+//            throw new InvalidMatrixesException("Selecione apenas uma matriz.");
+//        } else {
+//            Actions.matrixTrans(main.getMatrixes().get(0));
+//            generateMatrixStage();
+//
+//        }
         //TODO: add methods to transpose matrixes
     }
 
-    public void showMatrix(Main main) throws IOException, InvalidMatrixesException {
+    public void showMatrix() throws IOException, InvalidMatrixesException {
+        Main main = new Main();
         if (main.getMatrixes().size() > 1) {
             throw new InvalidMatrixesException("Selecione apenas uma matriz.");
         } else {
-            Actions.printMatrix(main.getMatrixes().get(0));
+            stringMatrix = Actions.printMatrix(main.getMatrixes().get(0));
+            stringSize = main.getMatrixes().get(0).getSize();
             generateMatrixStage();
 
         }

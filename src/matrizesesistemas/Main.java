@@ -17,7 +17,8 @@ public class Main extends Application {
     private static List<Matrix> matrixes = new ArrayList<>();
 
     public static void addToMatrixes(File file) {
-        matrixes.add(new Matrix(file));
+        Matrix matrix = new Matrix(file);
+        matrixes.add(matrix);
     }
 
     public List<Matrix> getMatrixes() {
