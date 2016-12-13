@@ -15,6 +15,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import matrizesesistemas.InvalidMatrixException;
 import matrizesesistemas.Main;
 
 
@@ -30,7 +31,7 @@ public class SelectFileController {
     @FXML
     ListView<String> listViewId;
 
-    public void add() {
+    public void add() throws InvalidMatrixException {
 
         Stage stage = new Stage();
         FileChooser fileChooser = new FileChooser();

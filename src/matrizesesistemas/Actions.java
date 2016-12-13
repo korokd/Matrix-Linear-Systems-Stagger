@@ -74,11 +74,10 @@ public class Actions {
                 matrixN[contRow][contCol] = Double.parseDouble(b);
 
                
-
+                
             }
             contCol++;
             contRow++;
-
         }
 
         return matrixN;
@@ -175,34 +174,28 @@ public class Actions {
         }
         
         return sb.toString();
+
+    }
+    
+    public static String printMatrix(String[][] matrix) {
         
-        /*int contador = 0;
-
-        String print = "";
-
-        for (String[] line : matrix.getMatrix()) {
-
-            print = String.format("\t%s%s", print, "|");
-
-            for (String element : line) {
-
-                print = String.format("\t%s%s", print, "|");
-
+        StringBuilder sb = new StringBuilder();
+        
+        for(String[] line : matrix) {
+            
+            sb.append("\t| ");
+            
+            for(String element : line) {
+                
+                sb.append(String.format("\t%s " ,element));
+                
             }
-
-            System.out.printf("\t%s", "|");
-
-            contador++;
-
-            if (contador == matrix.getMatrix().length) {
-
-                System.out.printf(" %s", matrix.getSize());
-
-            }
-
-            System.out.println();
-
-        }*/
+            
+            sb.append("|\n");
+            
+        }
+        
+        return sb.toString();
 
     }
 
@@ -262,13 +255,13 @@ public class Actions {
     public static double[][] matrixProduct(Matrix matrix1, Matrix matrix2) throws NotMatchingSizesException {
 
         int rows1, cols1, rows2, cols2;
-        String[] aux;
+        String[] aux = {null,null};
         aux = matrix1.getSize().split("x");
-        rows1 = Integer.parseInt(aux[1]);
-        cols1 = Integer.parseInt(aux[2]);
+        rows1 = Integer.parseInt(aux[0]);
+        cols1 = Integer.parseInt(aux[1]);
         aux = matrix2.getSize().split("x");
-        rows2 = Integer.parseInt(aux[1]);
-        cols2 = Integer.parseInt(aux[2]);
+        rows2 = Integer.parseInt(aux[0]);
+        cols2 = Integer.parseInt(aux[1]);
 
         if (!(rows1 == cols2)) {
 
@@ -299,7 +292,7 @@ public class Actions {
     }
 
     public static double[][] matrixTrans(Matrix matrix) {
-
+       
         int row = matrix.getMatrixN().length;
         int col = matrix.getMatrixN()[0].length;
         double[][] matrixR = new double[col][row];
@@ -317,5 +310,7 @@ public class Actions {
         return matrixR;
 
     }
+    
+ 
 
 }
