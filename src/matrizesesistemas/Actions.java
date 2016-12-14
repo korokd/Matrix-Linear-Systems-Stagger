@@ -25,7 +25,7 @@ public class Actions {
             sbWholeRow.deleteCharAt(0);
 
             wholeRow = sbWholeRow.toString();
-            System.out.println(wholeRow);
+            
             row = wholeRow.split("~");
             
             matrix.add(row);
